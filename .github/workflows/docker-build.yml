@@ -1,0 +1,24 @@
+name: Build Docker Image
+on:
+  push:
+    branches:
+      - master  
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and Push Docker Image
+        env:
+          IMAGE_NAME: axon-faucet # 替换为你的镜像名称
+          DOCKER_REGISTRY: ghcr.io/simon-tl  # 替换为你的 Docker Registry 地址
+        run: |
+          docker buildx build --platform linux/amd64,linux/arm64 --push --tag $DOCKER_REGISTRY/$IMAGE_NAME .
