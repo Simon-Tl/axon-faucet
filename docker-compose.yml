@@ -18,6 +18,8 @@ services:
     restart: always
     user: root
     privileged: true
+    env_file:
+      - ./env.example
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ${AXON_FAUCET_MONGODB_PASSWORD}
